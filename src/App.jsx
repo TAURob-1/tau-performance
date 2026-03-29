@@ -4,6 +4,8 @@ import Overview from './components/Dashboard/Overview';
 import SearchDashboard from './components/Search/SearchDashboard';
 import SocialDashboard from './components/Social/SocialDashboard';
 import PricingDashboard from './components/Pricing/PricingDashboard';
+import GoogleMetaAudit from './components/Audit/GoogleMetaAudit';
+import SEOIntelligence from './components/SEO/SEOIntelligence';
 import ChatPanel from './components/Chat/ChatPanel';
 import { useDashboard } from './context/DashboardContext';
 import { useAuth } from './context/AuthContext';
@@ -21,6 +23,8 @@ const BASE_PAGES = [
 const CLIENT_PAGES = {
   '247cf': [
     { key: 'pricing', label: 'Pricing', fullLabel: 'Pricing & Elasticity', after: 'social' },
+    { key: 'audit', label: 'Audit', fullLabel: 'Performance Audit', after: 'pricing' },
+    { key: 'seo', label: 'SEO', fullLabel: 'SEO Intelligence', after: 'audit' },
   ],
 };
 
@@ -53,6 +57,8 @@ function App() {
       case 'search': return <SearchDashboard />;
       case 'social': return <SocialDashboard />;
       case 'pricing': return <PricingDashboard />;
+      case 'audit': return <GoogleMetaAudit />;
+      case 'seo': return <SEOIntelligence />;
       case 'chat': return <ChatPanel />;
       default: return <Overview />;
     }
