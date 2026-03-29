@@ -19,10 +19,18 @@ export default function Header() {
     <div className="bg-white border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-3">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-          {/* Left: client + date */}
+          {/* Left: client selector + date */}
           <div className="flex items-center gap-4">
             <div>
-              <h2 className="text-sm font-semibold text-gray-900">{client.name}</h2>
+              <select
+                value={clientSlug}
+                onChange={e => setClientSlug(e.target.value)}
+                className="text-sm font-semibold text-gray-900 bg-transparent border-none outline-none cursor-pointer hover:text-blue-700 pr-4"
+              >
+                {CLIENT_OPTIONS.map(c => (
+                  <option key={c.id} value={c.id}>{c.name}</option>
+                ))}
+              </select>
               <p className="text-xs text-gray-500">{client.vertical}</p>
             </div>
             <div className="flex items-center gap-2">

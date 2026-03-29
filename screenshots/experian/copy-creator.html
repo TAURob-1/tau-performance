@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1200">
+<title>TAU Performance – Google Copy Creator</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:#f1f5f9;color:#1e293b;font-size:13px;width:1200px}
+.header{background:#fff;border-bottom:1px solid #e2e8f0;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 3px rgba(0,0,0,0.05)}
+.header-left{display:flex;align-items:center;gap:16px}
+.logo{display:flex;align-items:center;gap:8px}
+.logo-mark{width:32px;height:32px;background:linear-gradient(135deg,#6366f1,#8b5cf6);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:12px}
+.logo-text{font-weight:700;font-size:15px;color:#1e293b}
+.logo-text span{color:#6366f1}
+.divider{width:1px;height:24px;background:#e2e8f0}
+.client-info h2{font-size:13px;font-weight:600;color:#1e293b}
+.client-info p{font-size:11px;color:#64748b}
+.header-right{display:flex;align-items:center;gap:10px}
+.date-chip{background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:5px 10px;font-size:11px;color:#64748b}
+.btn{padding:6px 14px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:none;display:flex;align-items:center;gap:5px}
+.btn-primary{background:#6366f1;color:#fff}
+.btn-google{background:#4285f4;color:#fff}
+.btn-outline{background:#fff;color:#64748b;border:1px solid #e2e8f0}
+.btn-green{background:#16a34a;color:#fff}
+.nav{background:#fff;border-bottom:1px solid #e2e8f0;padding:0 24px;display:flex;gap:0}
+.nav-item{padding:10px 16px;font-size:12px;font-weight:500;color:#64748b;cursor:pointer;border-bottom:2px solid transparent}
+.nav-item.active{color:#6366f1;border-bottom:2px solid #6366f1}
+.main-layout{display:grid;grid-template-columns:320px 1fr;gap:0;height:calc(100vh - 90px);min-height:630px}
+.sidebar{background:#fff;border-right:1px solid #e2e8f0;display:flex;flex-direction:column;overflow:hidden}
+.sidebar-header{padding:14px 16px;border-bottom:1px solid #f1f5f9;font-size:13px;font-weight:600;color:#1e293b;background:#fafafa}
+.sidebar-body{padding:16px;flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:14px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-label{font-size:11px;font-weight:600;color:#374151;text-transform:uppercase;letter-spacing:0.05em}
+.form-input{padding:8px 10px;border:1px solid #e2e8f0;border-radius:6px;font-size:12px;font-family:'Inter',sans-serif;color:#1e293b;background:#fff;resize:none}
+.form-input:focus{outline:none;border-color:#6366f1;box-shadow:0 0 0 2px rgba(99,102,241,0.1)}
+.tag-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px}
+.tag{padding:3px 8px;border-radius:12px;font-size:11px;cursor:pointer;border:1px solid transparent}
+.tag-active{background:#eff6ff;color:#2563eb;border-color:#bfdbfe}
+.tag-inactive{background:#f8fafc;color:#64748b;border-color:#e2e8f0}
+.tone-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.tone-btn{padding:6px 8px;border-radius:6px;font-size:11px;font-weight:500;text-align:center;cursor:pointer;border:1px solid #e2e8f0;background:#f8fafc;color:#64748b}
+.tone-btn.selected{background:#f5f3ff;color:#7c3aed;border-color:#d8b4fe}
+.sidebar-footer{padding:14px 16px;border-top:1px solid #e2e8f0;display:flex;flex-direction:column;gap:8px}
+.generate-btn{padding:10px;border-radius:8px;font-size:13px;font-weight:600;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;cursor:pointer;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px}
+.right-panel{display:flex;flex-direction:column;overflow:hidden}
+.panel-tabs{display:flex;gap:0;border-bottom:1px solid #e2e8f0;background:#fff}
+.panel-tab{padding:10px 18px;font-size:12px;font-weight:500;color:#64748b;cursor:pointer;border-bottom:2px solid transparent}
+.panel-tab.active{color:#6366f1;border-bottom:2px solid #6366f1;background:#fff}
+.panel-body{padding:16px 20px;flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+.ad-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.ad-card-header{padding:10px 14px;background:#fafafa;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between}
+.ad-number{font-size:11px;font-weight:600;color:#94a3b8}
+.ad-actions{display:flex;gap:5px}
+.icon-btn{width:26px;height:26px;border-radius:5px;border:1px solid #e2e8f0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px}
+.icon-btn:hover{background:#f8fafc}
+.ad-preview{padding:12px 14px}
+.ad-url{font-size:12px;color:#1a73e8;margin-bottom:2px}
+.ad-headline{font-size:14px;font-weight:600;color:#1a0dab;margin-bottom:4px;line-height:1.4}
+.ad-desc{font-size:12px;color:#4d5156;line-height:1.5}
+.ad-meta{padding:10px 14px;background:#f8fafc;border-top:1px solid #f1f5f9;display:flex;gap:14px}
+.ad-score{display:flex;align-items:center;gap:5px;font-size:11px}
+.score-bar{height:5px;width:60px;background:#e2e8f0;border-radius:3px;overflow:hidden}
+.score-fill{height:100%;border-radius:3px}
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600}
+.badge-green{background:#f0fdf4;color:#16a34a}
+.badge-blue{background:#eff6ff;color:#2563eb}
+.badge-purple{background:#f5f3ff;color:#7c3aed}
+.badge-orange{background:#fff7ed;color:#c2410c}
+.badge-yellow{background:#fefce8;color:#a16207}
+.char-count{font-size:10px;color:#94a3b8;text-align:right;margin-top:2px}
+.section-label{font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:4px}
+.stat-mini{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px;text-align:center}
+.stat-val{font-size:18px;font-weight:700;color:#1e293b}
+.stat-lbl{font-size:10px;color:#64748b;margin-top:1px}
+</style>
+</head>
+<body>
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="logo">
+      <div class="logo-mark">τ</div>
+      <div class="logo-text"><span>TAU</span> Performance</div>
+    </div>
+    <div class="divider"></div>
+    <div class="client-info">
+      <h2>Experian</h2>
+      <p>Google Copy Creator · AI-Powered Ad Generation</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <span style="font-size:11px;background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;padding:4px 10px;border-radius:6px;font-weight:500">✓ 8 variations generated</span>
+    <button class="btn btn-outline">↓ Export All</button>
+    <button class="btn btn-google">Push to Google Ads</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="nav-item">Overview</div>
+  <div class="nav-item">YouTube</div>
+  <div class="nav-item">Search</div>
+  <div class="nav-item active">Copy Creator</div>
+  <div class="nav-item">Creative Manager</div>
+  <div class="nav-item">AI Chat</div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="main-layout">
+
+  <!-- SIDEBAR: INPUTS -->
+  <div class="sidebar">
+    <div class="sidebar-header">⚙️ Generation Settings</div>
+    <div class="sidebar-body">
+
+      <div class="form-group">
+        <div class="form-label">Campaign / Product</div>
+        <input class="form-input" value="Free Credit Score Check" style="height:34px">
+      </div>
+
+      <div class="form-group">
+        <div class="form-label">Target Keywords</div>
+        <textarea class="form-input" rows="3">check my credit score free
+free credit report UK
+improve credit score fast
+experian credit check</textarea>
+        <div class="char-count">4 keywords · 58 chars</div>
+      </div>
+
+      <div class="form-group">
+        <div class="form-label">USPs / Key Messages</div>
+        <div class="tag-row">
+          <span class="tag tag-active">Free Forever</span>
+          <span class="tag tag-active">Instant Results</span>
+          <span class="tag tag-active">No Card Required</span>
+          <span class="tag tag-inactive">Award Winning</span>
+          <span class="tag tag-inactive">10M+ Users</span>
+          <span class="tag tag-inactive">FCA Regulated</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="form-label">Audience</div>
+        <select class="form-input" style="height:34px">
+          <option>25–44 · Financial Seekers</option>
+          <option>18–35 · First-Time Credit</option>
+          <option>35–55 · Homeowners</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <div class="form-label">Tone of Voice</div>
+        <div class="tone-grid">
+          <div class="tone-btn selected">Trustworthy</div>
+          <div class="tone-btn selected">Empowering</div>
+          <div class="tone-btn">Urgent</div>
+          <div class="tone-btn">Friendly</div>
+          <div class="tone-btn">Professional</div>
+          <div class="tone-btn">Conversational</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="form-label">Number of Variations</div>
+        <div style="display:flex;gap:5px">
+          <span class="tag tag-inactive" style="padding:5px 12px">4</span>
+          <span class="tag tag-inactive" style="padding:5px 12px">6</span>
+          <span class="tag tag-active" style="padding:5px 12px">8</span>
+          <span class="tag tag-inactive" style="padding:5px 12px">12</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="form-label">Additional Instructions</div>
+        <textarea class="form-input" rows="2" placeholder="e.g. Include seasonal offer, avoid competitor names...">Include free trial CTA. Mention 10M+ users for social proof.</textarea>
+      </div>
+
+    </div>
+    <div class="sidebar-footer">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div class="stat-mini">
+          <div class="stat-val" style="color:#6366f1">8</div>
+          <div class="stat-lbl">Variations</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-val" style="color:#16a34a">6</div>
+          <div class="stat-lbl">Approved</div>
+        </div>
+      </div>
+      <div class="generate-btn">✨ Regenerate Variations</div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL: AD VARIATIONS -->
+  <div class="right-panel">
+    <div class="panel-tabs">
+      <div class="panel-tab active">All Variations (8)</div>
+      <div class="panel-tab">Approved (6)</div>
+      <div class="panel-tab">Performance Predictions</div>
+      <div class="panel-tab">A/B Test Planner</div>
+    </div>
+    <div class="panel-body" style="background:#f1f5f9">
+
+      <div class="stats-row">
+        <div class="stat-mini">
+          <div class="stat-val">8</div>
+          <div class="stat-lbl">Generated</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-val" style="color:#16a34a">6</div>
+          <div class="stat-lbl">Approved</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-val" style="color:#f59e0b">2</div>
+          <div class="stat-lbl">Under Review</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-val" style="color:#6366f1">4.8★</div>
+          <div class="stat-lbl">Avg. Ad Strength</div>
+        </div>
+      </div>
+
+      <!-- AD 1 -->
+      <div class="ad-card">
+        <div class="ad-card-header">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="ad-number">Variation 1</span>
+            <span class="badge badge-green">✓ Approved</span>
+            <span class="badge badge-purple">Highest CTR Predicted</span>
+          </div>
+          <div class="ad-actions">
+            <div class="icon-btn">✏️</div>
+            <div class="icon-btn">📋</div>
+            <div class="icon-btn" style="background:#f0fdf4;border-color:#bbf7d0">✓</div>
+          </div>
+        </div>
+        <div class="ad-preview">
+          <div class="ad-url">experian.co.uk/credit-score</div>
+          <div class="ad-headline">Free Credit Score – Check Yours Now | 10M+ Users Trust Experian</div>
+          <div class="ad-desc">Get your free Experian credit score instantly. No credit card needed. See what lenders see — improve your score and access better rates today.</div>
+        </div>
+        <div class="ad-meta">
+          <div class="ad-score">
+            <span style="font-size:10px;color:#64748b">Ad Strength:</span>
+            <div class="score-bar"><div class="score-fill" style="width:92%;background:#16a34a"></div></div>
+            <strong style="color:#16a34a;font-size:11px">Excellent</strong>
+          </div>
+          <div class="ad-score"><span style="font-size:10px;color:#64748b">Pred. CTR:</span><strong style="color:#6366f1;font-size:11px;margin-left:3px">6.8%</strong></div>
+          <div class="ad-score"><span style="font-size:10px;color:#64748b">Tone:</span><span class="badge badge-blue" style="margin-left:3px">Trustworthy</span></div>
+        </div>
+      </div>
+
+      <!-- AD 2 -->
+      <div class="ad-card">
+        <div class="ad-card-header">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="ad-number">Variation 2</span>
+            <span class="badge badge-green">✓ Approved</span>
+          </div>
+          <div class="ad-actions">
+            <div class="icon-btn">✏️</div>
+            <div class="icon-btn">📋</div>
+            <div class="icon-btn" style="background:#f0fdf4;border-color:#bbf7d0">✓</div>
+          </div>
+        </div>
+        <div class="ad-preview">
+          <div class="ad-url">experian.co.uk/free-credit-report</div>
+          <div class="ad-headline">Check Your Credit Score Free | Instant Report – No Hidden Fees</div>
+          <div class="ad-desc">Take control of your credit health. Free Experian score with detailed report — updated monthly. FCA regulated. Join over 10 million users in the UK.</div>
+        </div>
+        <div class="ad-meta">
+          <div class="ad-score">
+            <span style="font-size:10px;color:#64748b">Ad Strength:</span>
+            <div class="score-bar"><div class="score-fill" style="width:85%;background:#22c55e"></div></div>
+            <strong style="color:#22c55e;font-size:11px">Good</strong>
+          </div>
+          <div class="ad-score"><span style="font-size:10px;color:#64748b">Pred. CTR:</span><strong style="color:#6366f1;font-size:11px;margin-left:3px">5.9%</strong></div>
+          <div class="ad-score"><span style="font-size:10px;color:#64748b">Tone:</span><span class="badge badge-green" style="margin-left:3px">Empowering</span></div>
+        </div>
+      </div>
+
+      <!-- AD 3 -->
+      <div class="ad-card">
+        <div class="ad-card-header">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="ad-number">Variation 3</span>
+            <span class="badge badge-green">✓ Approved</span>
+          </div>
+          <div class="ad-actions">
+            <div class="icon-btn">✏️</div>
+            <div class="icon-btn">📋</div>
+            <div class="icon-btn" style="background:#f0fdf4;border-color:#bbf7d0">✓</div>
+          </div>
+        </div>
+        <div class="ad-preview">
+          <div class="ad-url">experian.co.uk/credit-score/free</div>
+          <div class="ad-headline">Improve Your Credit Score – Free Forever | Start in 60 Seconds</div>
+          <div class="ad-desc">Don't guess your credit score. Get it free with Experian — with personalised tips to improve it. Apply for loans, cards and mortgages with confidence.</div>
+        </div>
+        <div class="ad-meta">
+          <div class="ad-score">
+            <span style="font-size:10px;color:#64748b">Ad Strength:</span>
+            <div class="score-bar"><div class="score-fill" style="width:78%;background:#22c55e"></div></div>
+            <strong style="color:#22c55e;font-size:11px">Good</strong>
+          </div>
+          <div class="ad-score"><span style="font-size:10px;color:#64748b">Pred. CTR:</span><strong style="color:#6366f1;font-size:11px;margin-left:3px">5.4%</strong></div>
+          <div class="ad-score"><span style="font-size:10px;color:#64748b">Tone:</span><span class="badge badge-purple" style="margin-left:3px">Trustworthy</span></div>
+        </div>
+      </div>
+
+      <!-- AD 4 – Under Review -->
+      <div class="ad-card" style="opacity:0.85">
+        <div class="ad-card-header">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="ad-number">Variation 4</span>
+            <span class="badge badge-yellow">⏳ Under Review</span>
+          </div>
+          <div class="ad-actions">
+            <div class="icon-btn">✏️</div>
+            <div class="icon-btn">📋</div>
+            <div class="icon-btn">✓</div>
+          </div>
+        </div>
+        <div class="ad-preview">
+          <div class="ad-url">experian.co.uk</div>
+          <div class="ad-headline">Bad Credit Score? Fix It Free With Experian | See Results Fast</div>
+          <div class="ad-desc">Struggling with a low credit score? Experian shows you exactly what to fix — free, fast and without affecting your score. Over 10M users improved theirs.</div>
+        </div>
+        <div class="ad-meta">
+          <div class="ad-score">
+            <span style="font-size:10px;color:#64748b">Ad Strength:</span>
+            <div class="score-bar"><div class="score-fill" style="width:62%;background:#f59e0b"></div></div>
+            <strong style="color:#f59e0b;font-size:11px">Average</strong>
+          </div>
+          <div class="ad-score"><span style="font-size:10px;color:#64748b">Pred. CTR:</span><strong style="color:#f59e0b;font-size:11px;margin-left:3px">4.2%</strong></div>
+          <div class="ad-score"><span style="font-size:10px;color:#64748b">Flag:</span><span class="badge badge-orange" style="margin-left:3px">Review: "Bad Credit"</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

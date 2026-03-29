@@ -2,11 +2,15 @@ import { useState, useMemo } from 'react';
 import Header from './components/Header';
 import Overview from './components/Dashboard/Overview';
 import SearchDashboard from './components/Search/SearchDashboard';
+import ExperianSearchDashboard from './components/Search/ExperianSearchDashboard';
 import SocialDashboard from './components/Social/SocialDashboard';
 import PricingDashboard from './components/Pricing/PricingDashboard';
 import GoogleMetaAudit from './components/Audit/GoogleMetaAudit';
 import SEOIntelligence from './components/SEO/SEOIntelligence';
 import ChatPanel from './components/Chat/ChatPanel';
+import YouTubeDashboard from './components/YouTube/YouTubeDashboard';
+import YouTubeCreativeManager from './components/YouTube/YouTubeCreativeManager';
+import GoogleCopyCreator from './components/Tools/GoogleCopyCreator';
 import { useDashboard } from './context/DashboardContext';
 import { useAuth } from './context/AuthContext';
 import { CLIENT_OPTIONS } from './config/platformConfig';
@@ -25,6 +29,11 @@ const CLIENT_PAGES = {
     { key: 'pricing', label: 'Pricing', fullLabel: 'Pricing & Elasticity', after: 'social' },
     { key: 'audit', label: 'Audit', fullLabel: 'Performance Audit', after: 'pricing' },
     { key: 'seo', label: 'SEO', fullLabel: 'SEO Intelligence', after: 'audit' },
+  ],
+  experian: [
+    { key: 'youtube', label: 'YouTube', fullLabel: 'YouTube Performance', after: 'overview' },
+    { key: 'yt-creative', label: 'YT Creative', fullLabel: 'YouTube Creative Manager', after: 'youtube' },
+    { key: 'copy-creator', label: 'Copy Creator', fullLabel: 'Google Copy Creator', after: 'search' },
   ],
 };
 
@@ -54,12 +63,15 @@ function App() {
   const renderPage = () => {
     switch (currentPage) {
       case 'overview': return <Overview />;
-      case 'search': return <SearchDashboard />;
+      case 'search': return clientSlug === 'experian' ? <ExperianSearchDashboard /> : <SearchDashboard />;
       case 'social': return <SocialDashboard />;
       case 'pricing': return <PricingDashboard />;
       case 'audit': return <GoogleMetaAudit />;
       case 'seo': return <SEOIntelligence />;
       case 'chat': return <ChatPanel />;
+      case 'youtube': return <YouTubeDashboard />;
+      case 'yt-creative': return <YouTubeCreativeManager />;
+      case 'copy-creator': return <GoogleCopyCreator />;
       default: return <Overview />;
     }
   };
