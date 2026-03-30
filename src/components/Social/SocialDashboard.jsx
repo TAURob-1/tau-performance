@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { usePerformanceData, computeMetrics, fmt } from '../../services/dataLoader';
-import { AlertTriangle } from 'lucide-react';
+import { FUNNEL_ASSUMPTIONS } from '../../data/funnelAssumptions';
+import { AlertTriangle, Info } from 'lucide-react';
 import KPICard from '../shared/KPICard';
 import AlertCard from '../shared/AlertCard';
 import SectionHeader from '../shared/SectionHeader';
@@ -138,9 +139,9 @@ export default function SocialDashboard() {
     { label: 'Impressions', value: fmt.number(metrics.impressions), connected: true },
     { label: 'Clicks', value: fmt.number(metrics.clicks), connected: true },
     { label: 'Applications', value: fmt.number(metrics.orders), connected: true, note: 'Platform (tracking issues)' },
-    { label: 'Approved', value: '—', connected: false, note: 'CRM required' },
-    { label: 'Funded Deals', value: '—', connected: false, note: 'CRM required' },
-    { label: 'Revenue', value: '—', connected: false, note: 'CRM required' },
+    { label: 'Approved', value: `~${fmt.number(metrics.approvedEst)}`, cost: metrics.approvedEst > 0 ? fmt.cpa(metrics.cost / metrics.approvedEst) : '—', connected: false, note: `Est. ${FUNNEL_ASSUMPTIONS.approvalRate * 100}% rate` },
+    { label: 'Funded Deals', value: `~${fmt.number(metrics.fundedEst)}`, cost: fmt.cpa(metrics.costPerDeal), connected: false, note: `Est. ${FUNNEL_ASSUMPTIONS.fundingRate * 100}% rate` },
+    { label: 'Revenue', value: metrics.hasActualRevenue ? fmt.currency(metrics.actualRevenue) : `~${fmt.currency(metrics.revenueEst)}`, connected: false, note: metrics.hasActualRevenue ? 'Actual' : 'Modeled' },
   ];
 
   return (
@@ -151,12 +152,13 @@ export default function SocialDashboard() {
       </div>
 
       {/* KPI Scorecards */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
         <KPICard label="Spend" value={fmt.currency(metrics.cost)} trend="up" trendValue="+18%" sparklineTrend="up" color="purple" />
-        <KPICard label="Impressions" value={fmt.number(metrics.impressions)} trend="up" trendValue="+22%" sparklineTrend="up" color="blue" />
-        <KPICard label="Reach" value={fmt.number(metaTotals.reach)} sub={`Avg freq: ${metaTotals.frequency.toFixed(1)}`} sparklineTrend="up" color="green" />
-        <KPICard label="Applications" value={fmt.number(metrics.orders)} sub="Platform-reported" trend="up" trendValue="+10%" sparklineTrend="up" color="orange" />
-        <KPICard label="CPA" value={fmt.cpa(metrics.cpa)} trend="down" trendValue="-5%" sparklineTrend="down" color="red" />
+        <KPICard label="Applications" value={fmt.number(metrics.orders)} sub="Platform-reported" trend="up" trendValue="+10%" sparklineTrend="up" color="green" />
+        <KPICard label="CPA" value={fmt.cpa(metrics.cpa)} trend="down" trendValue="-5%" sparklineTrend="down" color="orange" />
+        <KPICard label="Cost per Deal" value={fmt.cpa(metrics.costPerDeal)} sub={metrics.hasActualRevenue ? 'Actual' : 'Modeled'} sparklineTrend="down" color="red" />
+        <KPICard label="Est. Funded Deals" value={fmt.number(metrics.fundedEst)} sub={`${FUNNEL_ASSUMPTIONS.approvalRate * 100}% × ${FUNNEL_ASSUMPTIONS.fundingRate * 100}%`} sparklineTrend="up" color="blue" />
+        <KPICard label="ROI" value={fmt.roi(metrics.roi)} sub={metrics.hasActualRevenue ? `ROAS ${fmt.roas(metrics.roas)}` : 'Modeled'} trend={metrics.roi > 0 ? 'up' : 'down'} trendValue={metrics.hasActualRevenue ? 'Actual' : 'Est.'} sparklineTrend={metrics.roi > 0 ? 'up' : 'down'} color={metrics.roi > 0 ? 'green' : 'red'} />
       </div>
 
       {/* Prospecting vs Retargeting */}
@@ -214,12 +216,18 @@ export default function SocialDashboard() {
               <thead><tr className="border-b"><th className="text-left py-1">Metric</th><th className="text-right py-1">Google</th><th className="text-right py-1">Meta</th></tr></thead>
               <tbody>
                 <tr><td className="py-1">CPA (platform)</td><td className="py-1 text-right">{fmt.cpa(searchMetrics.cpa)}</td><td className="py-1 text-right">{fmt.cpa(metrics.cpa)}</td></tr>
+                <tr><td className="py-1">Cost per deal (est.)</td><td className="py-1 text-right">{fmt.cpa(searchMetrics.costPerDeal)}</td><td className="py-1 text-right">{fmt.cpa(metrics.costPerDeal)}</td></tr>
+                <tr><td className="py-1">ROI (est.)</td><td className="py-1 text-right">{fmt.roi(searchMetrics.roi)}</td><td className="py-1 text-right">{fmt.roi(metrics.roi)}</td></tr>
                 <tr><td className="py-1">Approval rate</td><td className="py-1 text-right text-gray-300">TBD</td><td className="py-1 text-right text-gray-300">TBD</td></tr>
                 <tr><td className="py-1">Cost per funded</td><td className="py-1 text-right text-gray-300">TBD</td><td className="py-1 text-right text-gray-300">TBD</td></tr>
               </tbody>
             </table>
           </div>
           <AlertCard severity="warning" title="Key question" text="Is Meta traffic lower quality than Google? Platform CPAs suggest Meta is cheaper, but if approval rates are lower, true cost per funded deal may be similar. CRM data required to answer." icon={AlertTriangle} />
+        </div>
+        <div className="mt-3 flex items-start gap-2 p-2.5 bg-gray-50 rounded-lg text-xs text-gray-500">
+          <Info size={14} className="text-gray-400 flex-shrink-0 mt-0.5" />
+          <span>Downstream estimates use modeled assumptions: {FUNNEL_ASSUMPTIONS.labels.approvalRate}, {FUNNEL_ASSUMPTIONS.labels.fundingRate}, {FUNNEL_ASSUMPTIONS.labels.avgDealValue}. Connect CRM data for actuals.</span>
         </div>
       </div>
 

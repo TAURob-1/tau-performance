@@ -8,6 +8,7 @@ import PricingDashboard from './components/Pricing/PricingDashboard';
 import GoogleMetaAudit from './components/Audit/GoogleMetaAudit';
 import SEOIntelligence from './components/SEO/SEOIntelligence';
 import ChatPanel from './components/Chat/ChatPanel';
+import GeoIncrementalityDashboard from './components/GeoTest/GeoIncrementalityDashboard';
 import YouTubeDashboard from './components/YouTube/YouTubeDashboard';
 import YouTubeCreativeManager from './components/YouTube/YouTubeCreativeManager';
 import GoogleCopyCreator from './components/Tools/GoogleCopyCreator';
@@ -20,14 +21,15 @@ const BASE_PAGES = [
   { key: 'overview', label: 'Overview', fullLabel: 'Overview' },
   { key: 'search', label: 'Search', fullLabel: 'Search Performance' },
   { key: 'social', label: 'Social', fullLabel: 'Social Performance' },
-  { key: 'chat', label: 'Chat', fullLabel: 'AI Chat' },
+  { key: 'chat', label: 'Planner', fullLabel: 'AI Planner' },
 ];
 
 // Client-specific pages (CLIENT_PAGES pattern from TAU-Reporting)
 const CLIENT_PAGES = {
   '247cf': [
     { key: 'pricing', label: 'Pricing', fullLabel: 'Pricing & Elasticity', after: 'social' },
-    { key: 'audit', label: 'Audit', fullLabel: 'Performance Audit', after: 'pricing' },
+    { key: 'geo-test', label: 'Geo Test', fullLabel: 'Geo Incrementality', after: 'pricing' },
+    { key: 'audit', label: 'Audit', fullLabel: 'Performance Audit', after: 'geo-test' },
     { key: 'seo', label: 'SEO', fullLabel: 'SEO Intelligence', after: 'audit' },
   ],
   experian: [
@@ -66,6 +68,7 @@ function App() {
       case 'search': return clientSlug === 'experian' ? <ExperianSearchDashboard /> : <SearchDashboard />;
       case 'social': return <SocialDashboard />;
       case 'pricing': return <PricingDashboard />;
+      case 'geo-test': return <GeoIncrementalityDashboard />;
       case 'audit': return <GoogleMetaAudit />;
       case 'seo': return <SEOIntelligence />;
       case 'chat': return <ChatPanel />;

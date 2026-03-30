@@ -1,5 +1,6 @@
 // Data loader for 247CF consolidated performance data
 import { useState, useEffect, useMemo } from 'react';
+import { computeDealMetrics } from '../data/funnelAssumptions';
 
 // Fetch consolidated data from API
 async function fetchData(endpoint) {
@@ -89,6 +90,8 @@ export function computeMetrics(records) {
     return acc;
   }, { impressions: 0, clicks: 0, orders: 0, cost: 0, revenue: 0 });
 
+  const deal = computeDealMetrics(totals.cost, totals.orders, totals.revenue);
+
   return {
     ...totals,
     ctr: totals.impressions > 0 ? (totals.clicks / totals.impressions) * 100 : 0,
@@ -96,6 +99,7 @@ export function computeMetrics(records) {
     cpa: totals.orders > 0 ? totals.cost / totals.orders : 0,
     roas: totals.cost > 0 ? totals.revenue / totals.cost : 0,
     convRate: totals.clicks > 0 ? (totals.orders / totals.clicks) * 100 : 0,
+    ...deal,
   };
 }
 
@@ -105,4 +109,6 @@ export const fmt = {
   number: (v) => v >= 1000000 ? `${(v/1000000).toFixed(2)}M` : v >= 1000 ? `${(v/1000).toFixed(1)}K` : v.toLocaleString('en-GB'),
   pct: (v) => `${v.toFixed(2)}%`,
   cpa: (v) => `£${v.toFixed(2)}`,
+  roi: (v) => `${v >= 0 ? '+' : ''}${v.toFixed(0)}%`,
+  roas: (v) => `${v.toFixed(2)}x`,
 };

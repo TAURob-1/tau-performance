@@ -1,7 +1,9 @@
 import { useMemo } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { usePerformanceData, computeMetrics, fmt } from '../../services/dataLoader';
+import { computeDealMetrics } from '../../data/funnelAssumptions';
 import { useDashboard } from '../../context/DashboardContext';
+import { FUNNEL_ASSUMPTIONS } from '../../data/funnelAssumptions';
 import KPICard from '../shared/KPICard';
 import SectionHeader from '../shared/SectionHeader';
 import { cpaCellClass } from '../shared/HeatmapCell';
@@ -56,15 +58,16 @@ export default function Overview() {
     const groups = {};
     for (const r of data) {
       const key = r.campaign;
-      if (!groups[key]) groups[key] = { campaign: key, channel: r.channel, status: r.status, campaign_type: r.campaign_type, cost: 0, orders: 0, impressions: 0, clicks: 0 };
+      if (!groups[key]) groups[key] = { campaign: key, channel: r.channel, status: r.status, campaign_type: r.campaign_type, cost: 0, orders: 0, impressions: 0, clicks: 0, revenue: 0 };
       groups[key].cost += r.cost_gbp;
       groups[key].orders += r.orders;
       groups[key].impressions += r.impressions;
       groups[key].clicks += r.clicks;
+      groups[key].revenue += Number(r.revenue_gbp || 0);
     }
     return Object.values(groups)
       .filter(c => c.cost > 0)
-      .map(c => ({ ...c, cpa: c.orders > 0 ? c.cost / c.orders : 0 }))
+      .map(c => ({ ...c, cpa: c.orders > 0 ? c.cost / c.orders : 0, ...computeDealMetrics(c.cost, c.orders, c.revenue) }))
       .sort((a, b) => b.cost - a.cost)
       .slice(0, 10);
   }, [data]);
@@ -80,11 +83,13 @@ export default function Overview() {
       </div>
 
       {/* KPI Cards with Sparklines */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
         <KPICard label="Total Spend" value={fmt.currency(metrics.cost)} sub={`Google ${fmt.currency(searchMetrics.cost)} / Meta ${fmt.currency(socialMetrics.cost)}`} trend="up" trendValue="+14%" sparklineTrend="up" color="blue" />
         <KPICard label="Applications" value={fmt.number(metrics.orders)} sub={`Google ${fmt.number(searchMetrics.orders)} / Meta ${fmt.number(socialMetrics.orders)}`} trend="up" trendValue="+12%" sparklineTrend="up" color="green" />
         <KPICard label="Blended CPA" value={fmt.cpa(metrics.cpa)} sub={`Google ${fmt.cpa(searchMetrics.cpa)} / Meta ${fmt.cpa(socialMetrics.cpa)}`} trend="down" trendValue="-4%" sparklineTrend="down" color="orange" />
-        <KPICard label="Impressions" value={fmt.number(metrics.impressions)} sub="Revenue data not available" trend="up" trendValue="+18%" sparklineTrend="up" color="purple" />
+        <KPICard label="Cost per Deal" value={fmt.cpa(metrics.costPerDeal)} sub={`Google ${fmt.cpa(searchMetrics.costPerDeal)} / Meta ${fmt.cpa(socialMetrics.costPerDeal)}`} sparklineTrend="down" color="red" />
+        <KPICard label="Est. Funded Deals" value={fmt.number(metrics.fundedEst)} sub={`Google ${fmt.number(searchMetrics.fundedEst)} / Meta ${fmt.number(socialMetrics.fundedEst)}`} sparklineTrend="up" color="purple" />
+        <KPICard label="ROI" value={fmt.roi(metrics.roi)} sub={metrics.hasActualRevenue ? `ROAS ${fmt.roas(metrics.roas)}` : 'Modeled'} trend={metrics.roi > 0 ? 'up' : 'down'} trendValue={metrics.hasActualRevenue ? 'Actual' : 'Est.'} sparklineTrend={metrics.roi > 0 ? 'up' : 'down'} color={metrics.roi > 0 ? 'green' : 'red'} />
       </div>
 
       {/* Channel Comparison Chart */}
@@ -159,6 +164,8 @@ export default function Overview() {
                 <th className="text-right py-2 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Spend</th>
                 <th className="text-right py-2 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Apps</th>
                 <th className="text-right py-2 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">CPA</th>
+                <th className="text-right py-2 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Cost/Deal</th>
+                <th className="text-right py-2 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">ROI</th>
               </tr>
             </thead>
             <tbody>
@@ -175,6 +182,8 @@ export default function Overview() {
                   <td className="py-2 px-3 text-right text-gray-700">{fmt.currency(c.cost)}</td>
                   <td className="py-2 px-3 text-right text-gray-700">{fmt.number(c.orders)}</td>
                   <td className={`py-2 px-3 text-right font-medium ${cpaCellClass(c.cpa)}`}>{c.cpa > 0 ? fmt.cpa(c.cpa) : 'N/A'}</td>
+                  <td className="py-2 px-3 text-right text-gray-600">{c.costPerDeal > 0 ? fmt.cpa(c.costPerDeal) : '—'}</td>
+                  <td className={`py-2 px-3 text-right text-xs font-medium ${c.roi > 0 ? 'text-green-600' : c.roi < 0 ? 'text-red-600' : 'text-gray-400'}`}>{c.orders > 0 ? fmt.roi(c.roi) : '—'}</td>
                 </tr>
               ))}
             </tbody>
