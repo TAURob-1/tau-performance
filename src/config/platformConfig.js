@@ -11,18 +11,6 @@ export const CLIENT_OPTIONS = [
       accentHover: '#3182ce',
     },
   },
-  {
-    id: 'experian',
-    name: 'Experian',
-    slug: 'experian',
-    vertical: 'credit & financial services',
-    features: ['youtube', 'search', 'copy-creator', 'yt-creative'],
-    branding: {
-      gradient: 'from-[#8B1A1A] to-[#c0392b]',
-      accent: '#c0392b',
-      accentHover: '#e74c3c',
-    },
-  },
 ];
 
 export const CHANNEL_CONFIG = {

@@ -51,3 +51,30 @@ export const ATTRIBUTION_SETTINGS = [
   { setting: '7-day click, 1-day view', count: 8, status: 'Recommended', ok: true },
   { setting: 'Multiple attribution settings', count: 4, status: 'Inconsistent — standardise', ok: false },
 ];
+
+export const INCREMENTALITY_PLACEHOLDER = '90pc pc or 1r pc post view';
+
+export const INCREMENTALITY_EXPERIMENTS = {
+  googleAds: {
+    platform: 'Google Ads',
+    source: 'Google Ads experiments / conversion lift',
+    status: 'placeholder',
+    statusLabel: 'API pending',
+    methodology: 'Platform-native lift study or geo holdout',
+    counterfactual: 'Exposed vs holdout regions/users',
+    placeholder: INCREMENTALITY_PLACEHOLDER,
+    apiState: 'No experiment endpoint wired yet',
+    note: 'Mirror the geo-test reporting model once Google Ads experiment data is available. Until then, treat platform-reported PMAX efficiency as directional, not incremental truth.',
+  },
+  meta: {
+    platform: 'Meta',
+    source: 'Meta Experiments / Conversion Lift',
+    status: 'placeholder',
+    statusLabel: 'API pending',
+    methodology: 'Conversion lift or geo holdout',
+    counterfactual: 'Exposed vs control audience',
+    placeholder: INCREMENTALITY_PLACEHOLDER,
+    apiState: 'No experiments API wired yet',
+    note: 'Meta self-reported performance is not incremental ROAS. Keep prospecting vs retargeting split, then calibrate with lift studies or holdouts when experiment data is accessible.',
+  },
+};

@@ -1,0 +1,877 @@
+{
+  "note": "CRM data reliable for Feb 2026 only (adequate maturation time). Deal = PaidOutDate not null.",
+  "avg_order_value_gbp": 8500,
+  "reliable_period": "2026-02",
+  "by_month": {
+    "2026-01": {
+      "applications": 61671,
+      "deals": 1449
+    },
+    "2026-02": {
+      "applications": 57571,
+      "deals": 1335
+    },
+    "2026-03": {
+      "applications": 30758,
+      "deals": 659
+    }
+  },
+  "by_campaign": [
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_BR_Brand_carfinance247_Exact",
+      "month": "2026-02",
+      "applications": 9545,
+      "deals": 442,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Car_Finance_TP_Exact",
+      "month": "2026-02",
+      "applications": 3139,
+      "deals": 84,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Performance_Max_Bad_Credit",
+      "month": "2026-02",
+      "applications": 6126,
+      "deals": 78,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Bad_Credit_Car_Finance_TP_Exact",
+      "month": "2026-02",
+      "applications": 3209,
+      "deals": 76,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Bad_Credit_Exact",
+      "month": "2026-02",
+      "applications": 3948,
+      "deals": 75,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Car_Finance_Car_Finance_LT_Exact",
+      "month": "2026-02",
+      "applications": 3353,
+      "deals": 61,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_mobile_feed",
+      "utm_campaign": "120223814821280743",
+      "month": "2026-02",
+      "applications": 4330,
+      "deals": 56,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_MSS_Refinance",
+      "month": "2026-02",
+      "applications": 1193,
+      "deals": 40,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Car_Finance_LT_Exact",
+      "month": "2026-02",
+      "applications": 3240,
+      "deals": 38,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Performance_Max_Refinance",
+      "month": "2026-02",
+      "applications": 1453,
+      "deals": 34,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Bad_Credit_Car_Loans_TP_Exact",
+      "month": "2026-02",
+      "applications": 979,
+      "deals": 33,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Vehicle_Types_Van_Finance_TP_Exact",
+      "month": "2026-02",
+      "applications": 913,
+      "deals": 32,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Vehicle_Types_Van_Finance_Bad_Credit",
+      "month": "2026-02",
+      "applications": 567,
+      "deals": 27,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Bad_Credit_Poor_Credit_TP_Exact",
+      "month": "2026-02",
+      "applications": 713,
+      "deals": 24,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_MSS_Car_Loans_TP",
+      "month": "2026-02",
+      "applications": 1258,
+      "deals": 23,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Performance_Max_Test",
+      "month": "2026-02",
+      "applications": 1337,
+      "deals": 21,
+      "reliable": true
+    },
+    {
+      "utm_source": "bing",
+      "utm_campaign": "UK_BR_Brand_carfinance247_Exact",
+      "month": "2026-02",
+      "applications": 359,
+      "deals": 16,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_mobile_feed",
+      "utm_campaign": "120206963478010743",
+      "month": "2026-02",
+      "applications": 685,
+      "deals": 13,
+      "reliable": true
+    },
+    {
+      "utm_source": "bing",
+      "utm_campaign": "UK_GN_MSS_Car_Finance_Deals",
+      "month": "2026-02",
+      "applications": 519,
+      "deals": 13,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_marketplace",
+      "utm_campaign": "120223814821280743",
+      "month": "2026-02",
+      "applications": 797,
+      "deals": 11,
+      "reliable": true
+    },
+    {
+      "utm_source": "bing",
+      "utm_campaign": "UK_GN_Performance_Max_Test",
+      "month": "2026-02",
+      "applications": 646,
+      "deals": 10,
+      "reliable": true
+    },
+    {
+      "utm_source": "bing",
+      "utm_campaign": "UK_GN_MSS_Bad_Credit",
+      "month": "2026-02",
+      "applications": 404,
+      "deals": 10,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_mobile_feed",
+      "utm_campaign": "120224015231840743",
+      "month": "2026-02",
+      "applications": 689,
+      "deals": 10,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_MSS_Car_Finance_Deals",
+      "month": "2026-02",
+      "applications": 664,
+      "deals": 8,
+      "reliable": true
+    },
+    {
+      "utm_source": "fb",
+      "utm_campaign": "120223814821280743",
+      "month": "2026-02",
+      "applications": 253,
+      "deals": 8,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Vehicle_Types_Motorbike_Finance_Exact",
+      "month": "2026-02",
+      "applications": 659,
+      "deals": 8,
+      "reliable": true
+    },
+    {
+      "utm_source": "bing",
+      "utm_campaign": "UK_GN_Car_Finance_TP_Exact",
+      "month": "2026-02",
+      "applications": 260,
+      "deals": 7,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_MSS_Calculators",
+      "month": "2026-02",
+      "applications": 545,
+      "deals": 7,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_MSS_Car_Loans_TP_Phrase",
+      "month": "2026-02",
+      "applications": 387,
+      "deals": 7,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Vehicle_Types_Van_Finance_TP_Exact_AI-Max",
+      "month": "2026-02",
+      "applications": 387,
+      "deals": 6,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_mobile_feed",
+      "utm_campaign": "23858085299230742",
+      "month": "2026-02",
+      "applications": 478,
+      "deals": 4,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Car_Finance_Locations_Exact",
+      "month": "2026-02",
+      "applications": 163,
+      "deals": 4,
+      "reliable": true
+    },
+    {
+      "utm_source": "my",
+      "utm_campaign": "",
+      "month": "2026-02",
+      "applications": 185,
+      "deals": 4,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Car_Finance_Hire_Purchase_Exact",
+      "month": "2026-02",
+      "applications": 360,
+      "deals": 4,
+      "reliable": true
+    },
+    {
+      "utm_source": "bing",
+      "utm_campaign": "UK_GN_PCP_Car_Finance_Exact",
+      "month": "2026-02",
+      "applications": 120,
+      "deals": 3,
+      "reliable": true
+    },
+    {
+      "utm_source": "bing",
+      "utm_campaign": "UK_GN_MSS_Refinance",
+      "month": "2026-02",
+      "applications": 86,
+      "deals": 3,
+      "reliable": true
+    },
+    {
+      "utm_source": "fb",
+      "utm_campaign": "120206963478010743",
+      "month": "2026-02",
+      "applications": 105,
+      "deals": 2,
+      "reliable": true
+    },
+    {
+      "utm_source": "bing",
+      "utm_campaign": "UK_GN_MSS_Car_Loans_TP",
+      "month": "2026-02",
+      "applications": 53,
+      "deals": 2,
+      "reliable": true
+    },
+    {
+      "utm_source": "instagram_reels",
+      "utm_campaign": "120206963478010743",
+      "month": "2026-02",
+      "applications": 93,
+      "deals": 2,
+      "reliable": true
+    },
+    {
+      "utm_source": "bing",
+      "utm_campaign": "UK_GN_MSS_Calculators",
+      "month": "2026-02",
+      "applications": 35,
+      "deals": 2,
+      "reliable": true
+    },
+    {
+      "utm_source": "bing",
+      "utm_campaign": "UK_GN_Vehicle_Types_Van_Finance_TP_Exact",
+      "month": "2026-02",
+      "applications": 84,
+      "deals": 2,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_MSS_Car_Finance_Deals_Phrase",
+      "month": "2026-02",
+      "applications": 348,
+      "deals": 2,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Taxi_Car_Finance_Exact",
+      "month": "2026-02",
+      "applications": 60,
+      "deals": 2,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Business_Car_Finance_Exact",
+      "month": "2026-02",
+      "applications": 47,
+      "deals": 2,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_stories",
+      "utm_campaign": "120223814821280743",
+      "month": "2026-02",
+      "applications": 61,
+      "deals": 1,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_mobile_reels",
+      "utm_campaign": "120206963478010743",
+      "month": "2026-02",
+      "applications": 194,
+      "deals": 1,
+      "reliable": true
+    },
+    {
+      "utm_source": "instagram_feed",
+      "utm_campaign": "120206963478010743",
+      "month": "2026-02",
+      "applications": 142,
+      "deals": 1,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_mobile_reels",
+      "utm_campaign": "120223814821280743",
+      "month": "2026-02",
+      "applications": 145,
+      "deals": 1,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_marketplace",
+      "utm_campaign": "120206963478010743",
+      "month": "2026-02",
+      "applications": 16,
+      "deals": 1,
+      "reliable": true
+    },
+    {
+      "utm_source": "instagram_stories",
+      "utm_campaign": "120206963478010743",
+      "month": "2026-02",
+      "applications": 99,
+      "deals": 1,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_mobile_reels",
+      "utm_campaign": "23858085299230742",
+      "month": "2026-02",
+      "applications": 139,
+      "deals": 1,
+      "reliable": true
+    },
+    {
+      "utm_source": "others",
+      "utm_campaign": "23858085299230742",
+      "month": "2026-02",
+      "applications": 16,
+      "deals": 1,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_marketplace",
+      "utm_campaign": "120224015231840743",
+      "month": "2026-02",
+      "applications": 224,
+      "deals": 1,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_PCP_Car_Finance_Exact",
+      "month": "2026-02",
+      "applications": 409,
+      "deals": 1,
+      "reliable": true
+    },
+    {
+      "utm_source": "bing",
+      "utm_campaign": "UK_GN_Car_Finance_Locations_Exact",
+      "month": "2026-02",
+      "applications": 9,
+      "deals": 1,
+      "reliable": true
+    },
+    {
+      "utm_source": "fb",
+      "utm_campaign": "120224015231840743",
+      "month": "2026-02",
+      "applications": 24,
+      "deals": 1,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook",
+      "utm_campaign": "Leadly",
+      "month": "2026-02",
+      "applications": 7,
+      "deals": 1,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_mobile_reels",
+      "utm_campaign": "120224015231840743",
+      "month": "2026-02",
+      "applications": 46,
+      "deals": 1,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_desktop_feed",
+      "utm_campaign": "120206963478010743",
+      "month": "2026-02",
+      "applications": 6,
+      "deals": 1,
+      "reliable": true
+    },
+    {
+      "utm_source": "fb",
+      "utm_campaign": "120224069877880743",
+      "month": "2026-02",
+      "applications": 2,
+      "deals": 1,
+      "reliable": true
+    },
+    {
+      "utm_source": "instagram_feed",
+      "utm_campaign": "120223814821280743",
+      "month": "2026-02",
+      "applications": 166,
+      "deals": 1,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_marketplace",
+      "utm_campaign": "23858085299230742",
+      "month": "2026-02",
+      "applications": 80,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "instagram_reels",
+      "utm_campaign": "23858085299230742",
+      "month": "2026-02",
+      "applications": 42,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "instagram_feed",
+      "utm_campaign": "23858085299230742",
+      "month": "2026-02",
+      "applications": 66,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Electric_Car_Finance_Exact",
+      "month": "2026-02",
+      "applications": 97,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "others",
+      "utm_campaign": "120223814821280743",
+      "month": "2026-02",
+      "applications": 29,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "fb",
+      "utm_campaign": "23858085299230742",
+      "month": "2026-02",
+      "applications": 39,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_mobile_reels",
+      "utm_campaign": "120224069877880743",
+      "month": "2026-02",
+      "applications": 14,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook",
+      "utm_campaign": "120206963478010743",
+      "month": "2026-02",
+      "applications": 70,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_stories",
+      "utm_campaign": "120206963478010743",
+      "month": "2026-02",
+      "applications": 24,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Car_Credit_Exact",
+      "month": "2026-02",
+      "applications": 40,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_stories",
+      "utm_campaign": "23858085299230742",
+      "month": "2026-02",
+      "applications": 25,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "instagram_stories",
+      "utm_campaign": "120223814821280743",
+      "month": "2026-02",
+      "applications": 13,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_stories",
+      "utm_campaign": "120224015231840743",
+      "month": "2026-02",
+      "applications": 20,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_desktop_feed",
+      "utm_campaign": "120223814821280743",
+      "month": "2026-02",
+      "applications": 45,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "others",
+      "utm_campaign": "120206963478010743",
+      "month": "2026-02",
+      "applications": 68,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_desktop_feed",
+      "utm_campaign": "23858085299230742",
+      "month": "2026-02",
+      "applications": 9,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "bing",
+      "utm_campaign": "UK_GN_Vehicle_Types_Motorbike_Finance_Exact",
+      "month": "2026-02",
+      "applications": 22,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_mobile_feed",
+      "utm_campaign": "120224069877880743",
+      "month": "2026-02",
+      "applications": 11,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "instagram_stories",
+      "utm_campaign": "23858085299230742",
+      "month": "2026-02",
+      "applications": 28,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "an",
+      "utm_campaign": "120206963478010743",
+      "month": "2026-02",
+      "applications": 16,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "bing",
+      "utm_campaign": "UK_GN_Vehicle_Types_Van_Finance_Bad_Credit",
+      "month": "2026-02",
+      "applications": 21,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_desktop_feed",
+      "utm_campaign": "120224015231840743",
+      "month": "2026-02",
+      "applications": 7,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_CM_Competitors_Quick_Car_Finance_Exact",
+      "month": "2026-02",
+      "applications": 16,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "instagram_feed",
+      "utm_campaign": "120224069877880743",
+      "month": "2026-02",
+      "applications": 7,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_instream_video",
+      "utm_campaign": "120206963478010743",
+      "month": "2026-02",
+      "applications": 31,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "instagram_reels",
+      "utm_campaign": "120223814821280743",
+      "month": "2026-02",
+      "applications": 28,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "instagram_stories",
+      "utm_campaign": "120224069877880743",
+      "month": "2026-02",
+      "applications": 2,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_instream_video",
+      "utm_campaign": "120223814821280743",
+      "month": "2026-02",
+      "applications": 2,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "bing",
+      "utm_campaign": "UK_CM_Competitors_Quick_Car_Finance_Exact",
+      "month": "2026-02",
+      "applications": 2,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_right_column",
+      "utm_campaign": "120223814821280743",
+      "month": "2026-02",
+      "applications": 8,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook",
+      "utm_campaign": "comments_SF",
+      "month": "2026-02",
+      "applications": 8,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_mobile_feed",
+      "utm_campaign": "120225179929820461",
+      "month": "2026-02",
+      "applications": 6,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "instagram_reels",
+      "utm_campaign": "120224069877880743",
+      "month": "2026-02",
+      "applications": 4,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_mobile_reels",
+      "utm_campaign": "120225179929820461",
+      "month": "2026-02",
+      "applications": 1,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "{{placement}}",
+      "utm_campaign": "{{campaign.id}}",
+      "month": "2026-02",
+      "applications": 1,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook",
+      "utm_campaign": "comments_SL",
+      "month": "2026-02",
+      "applications": 61,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "others",
+      "utm_campaign": "120224015231840743",
+      "month": "2026-02",
+      "applications": 13,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_mobile_feed",
+      "utm_campaign": "120224570057610743",
+      "month": "2026-02",
+      "applications": 1,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_instream_video",
+      "utm_campaign": "120224069877880743",
+      "month": "2026-02",
+      "applications": 6,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Negative_Equity_Car_Finance_Exact",
+      "month": "2026-02",
+      "applications": 45,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "google",
+      "utm_campaign": "UK_GN_Vehicle_Types_Motor_Finance_TP_Exact",
+      "month": "2026-02",
+      "applications": 13,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "threads_feed",
+      "utm_campaign": "120206963478010743",
+      "month": "2026-02",
+      "applications": 1,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "an",
+      "utm_campaign": "120224069877880743",
+      "month": "2026-02",
+      "applications": 4,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook",
+      "utm_campaign": "comments_CA",
+      "month": "2026-02",
+      "applications": 6,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "an",
+      "utm_campaign": "23858085299230742",
+      "month": "2026-02",
+      "applications": 2,
+      "deals": 0,
+      "reliable": true
+    },
+    {
+      "utm_source": "facebook_stories",
+      "utm_campaign": "120224069877880743",
+      "month": "2026-02",
+      "applications": 1,
+      "deals": 0,
+      "reliable": true
+    }
+  ]
+}

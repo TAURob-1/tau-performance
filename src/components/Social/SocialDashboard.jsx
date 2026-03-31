@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { usePerformanceData, computeMetrics, fmt } from '../../services/dataLoader';
-import { FUNNEL_ASSUMPTIONS } from '../../data/funnelAssumptions';
-import { AlertTriangle, Info } from 'lucide-react';
+import { AlertTriangle } from 'lucide-react';
 import KPICard from '../shared/KPICard';
+import LockedKPICard from '../shared/LockedKPICard';
 import AlertCard from '../shared/AlertCard';
 import SectionHeader from '../shared/SectionHeader';
 import FunnelVisualization from '../shared/FunnelVisualization';
@@ -139,9 +139,9 @@ export default function SocialDashboard() {
     { label: 'Impressions', value: fmt.number(metrics.impressions), connected: true },
     { label: 'Clicks', value: fmt.number(metrics.clicks), connected: true },
     { label: 'Applications', value: fmt.number(metrics.orders), connected: true, note: 'Platform (tracking issues)' },
-    { label: 'Approved', value: `~${fmt.number(metrics.approvedEst)}`, cost: metrics.approvedEst > 0 ? fmt.cpa(metrics.cost / metrics.approvedEst) : '—', connected: false, note: `Est. ${FUNNEL_ASSUMPTIONS.approvalRate * 100}% rate` },
-    { label: 'Funded Deals', value: `~${fmt.number(metrics.fundedEst)}`, cost: fmt.cpa(metrics.costPerDeal), connected: false, note: `Est. ${FUNNEL_ASSUMPTIONS.fundingRate * 100}% rate` },
-    { label: 'Revenue', value: metrics.hasActualRevenue ? fmt.currency(metrics.actualRevenue) : `~${fmt.currency(metrics.revenueEst)}`, connected: false, note: metrics.hasActualRevenue ? 'Actual' : 'Modeled' },
+    { label: 'Approved', value: '—', connected: false, note: 'CRM required' },
+    { label: 'Funded Deals', value: '—', connected: false, note: 'CRM required' },
+    { label: 'Deal ROI', value: '—', connected: false, note: 'CRM required' },
   ];
 
   return (
@@ -156,9 +156,9 @@ export default function SocialDashboard() {
         <KPICard label="Spend" value={fmt.currency(metrics.cost)} trend="up" trendValue="+18%" sparklineTrend="up" color="purple" />
         <KPICard label="Applications" value={fmt.number(metrics.orders)} sub="Platform-reported" trend="up" trendValue="+10%" sparklineTrend="up" color="green" />
         <KPICard label="CPA" value={fmt.cpa(metrics.cpa)} trend="down" trendValue="-5%" sparklineTrend="down" color="orange" />
-        <KPICard label="Cost per Deal" value={fmt.cpa(metrics.costPerDeal)} sub={metrics.hasActualRevenue ? 'Actual' : 'Modeled'} sparklineTrend="down" color="red" />
-        <KPICard label="Est. Funded Deals" value={fmt.number(metrics.fundedEst)} sub={`${FUNNEL_ASSUMPTIONS.approvalRate * 100}% × ${FUNNEL_ASSUMPTIONS.fundingRate * 100}%`} sparklineTrend="up" color="blue" />
-        <KPICard label="ROI" value={fmt.roi(metrics.roi)} sub={metrics.hasActualRevenue ? `ROAS ${fmt.roas(metrics.roas)}` : 'Modeled'} trend={metrics.roi > 0 ? 'up' : 'down'} trendValue={metrics.hasActualRevenue ? 'Actual' : 'Est.'} sparklineTrend={metrics.roi > 0 ? 'up' : 'down'} color={metrics.roi > 0 ? 'green' : 'red'} />
+        <LockedKPICard label="Cost per Deal" />
+        <LockedKPICard label="Funded Deals" />
+        <LockedKPICard label="Deal ROI" />
       </div>
 
       {/* Prospecting vs Retargeting */}
@@ -207,27 +207,22 @@ export default function SocialDashboard() {
 
       {/* Full Funnel / Offline Outcomes */}
       <div className="bg-white border border-gray-200 rounded-xl p-6">
-        <SectionHeader title="Full Funnel — Offline Outcomes" sub="27K+ applications in 65 days despite broken tracking. True ROAS depends on approval rates and loan values." />
+        <SectionHeader title="Full Funnel — Offline Outcomes" sub="Application-level CPA is live. Approval, funded deal, and ROI reporting require CRM integration." />
         <FunnelVisualization stages={funnelStages} accentColor="purple" />
         <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
           <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-            <div className="text-xs font-semibold text-blue-700 mb-1">Cross-Channel Comparison (when CRM connected)</div>
+            <div className="text-xs font-semibold text-blue-700 mb-1">Cross-Channel Snapshot</div>
             <table className="w-full text-xs">
               <thead><tr className="border-b"><th className="text-left py-1">Metric</th><th className="text-right py-1">Google</th><th className="text-right py-1">Meta</th></tr></thead>
               <tbody>
+                <tr><td className="py-1">Applications</td><td className="py-1 text-right">{fmt.number(searchMetrics.orders)}</td><td className="py-1 text-right">{fmt.number(metrics.orders)}</td></tr>
                 <tr><td className="py-1">CPA (platform)</td><td className="py-1 text-right">{fmt.cpa(searchMetrics.cpa)}</td><td className="py-1 text-right">{fmt.cpa(metrics.cpa)}</td></tr>
-                <tr><td className="py-1">Cost per deal (est.)</td><td className="py-1 text-right">{fmt.cpa(searchMetrics.costPerDeal)}</td><td className="py-1 text-right">{fmt.cpa(metrics.costPerDeal)}</td></tr>
-                <tr><td className="py-1">ROI (est.)</td><td className="py-1 text-right">{fmt.roi(searchMetrics.roi)}</td><td className="py-1 text-right">{fmt.roi(metrics.roi)}</td></tr>
-                <tr><td className="py-1">Approval rate</td><td className="py-1 text-right text-gray-300">TBD</td><td className="py-1 text-right text-gray-300">TBD</td></tr>
-                <tr><td className="py-1">Cost per funded</td><td className="py-1 text-right text-gray-300">TBD</td><td className="py-1 text-right text-gray-300">TBD</td></tr>
+                <tr><td className="py-1">Funded deals</td><td className="py-1 text-right text-gray-300">—</td><td className="py-1 text-right text-gray-300">—</td></tr>
+                <tr><td className="py-1">Deal ROI</td><td className="py-1 text-right text-gray-300">—</td><td className="py-1 text-right text-gray-300">—</td></tr>
               </tbody>
             </table>
           </div>
           <AlertCard severity="warning" title="Key question" text="Is Meta traffic lower quality than Google? Platform CPAs suggest Meta is cheaper, but if approval rates are lower, true cost per funded deal may be similar. CRM data required to answer." icon={AlertTriangle} />
-        </div>
-        <div className="mt-3 flex items-start gap-2 p-2.5 bg-gray-50 rounded-lg text-xs text-gray-500">
-          <Info size={14} className="text-gray-400 flex-shrink-0 mt-0.5" />
-          <span>Downstream estimates use modeled assumptions: {FUNNEL_ASSUMPTIONS.labels.approvalRate}, {FUNNEL_ASSUMPTIONS.labels.fundingRate}, {FUNNEL_ASSUMPTIONS.labels.avgDealValue}. Connect CRM data for actuals.</span>
         </div>
       </div>
 

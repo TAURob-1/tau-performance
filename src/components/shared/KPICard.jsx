@@ -14,7 +14,20 @@ function generateSparkline(value, trend = 'up', points = 8) {
   return data;
 }
 
-export default function KPICard({ label, value, sub, trend, trendValue, sparklineData, sparklineTrend = 'up', color = 'blue' }) {
+export default function KPICard({
+  label,
+  value,
+  sub,
+  trend,
+  trendValue,
+  sparklineData,
+  sparklineTrend = 'up',
+  color = 'blue',
+  className = '',
+  valueClassName = '',
+  subClassName = '',
+  hideSparkline = false,
+}) {
   const colors = {
     blue: { spark: '#3B82F6', bg: 'bg-blue-50', text: 'text-blue-600' },
     green: { spark: '#10B981', bg: 'bg-green-50', text: 'text-green-600' },
@@ -29,11 +42,11 @@ export default function KPICard({ label, value, sub, trend, trendValue, sparklin
   const trendColor = trend === 'up' ? 'text-green-600' : trend === 'down' ? 'text-red-600' : 'text-gray-400';
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow group">
+    <div className={`bg-white border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow group ${className}`}>
       <div className="flex items-start justify-between">
         <div className="flex-1 min-w-0">
           <div className="text-xs text-gray-500 uppercase tracking-wide font-medium">{label}</div>
-          <div className="text-2xl font-bold text-gray-900 mt-1">{value}</div>
+          <div className={`text-2xl font-bold text-gray-900 mt-1 ${valueClassName}`}>{value}</div>
           <div className="flex items-center gap-1.5 mt-1">
             {trend && (
               <span className={`flex items-center gap-0.5 text-xs font-medium ${trendColor}`}>
@@ -41,16 +54,18 @@ export default function KPICard({ label, value, sub, trend, trendValue, sparklin
                 {trendValue}
               </span>
             )}
-            {sub && <span className="text-xs text-gray-400">{trend ? '· ' : ''}{sub}</span>}
+            {sub && <span className={`text-xs text-gray-400 ${subClassName}`}>{trend ? '· ' : ''}{sub}</span>}
           </div>
         </div>
-        <div className="w-20 h-10 ml-2 opacity-70 group-hover:opacity-100 transition-opacity">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data}>
-              <Line type="monotone" dataKey="v" stroke={c.spark} strokeWidth={1.5} dot={false} />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
+        {!hideSparkline && (
+          <div className="w-20 h-10 ml-2 opacity-70 group-hover:opacity-100 transition-opacity">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={data}>
+                <Line type="monotone" dataKey="v" stroke={c.spark} strokeWidth={1.5} dot={false} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        )}
       </div>
     </div>
   );

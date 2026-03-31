@@ -9,6 +9,7 @@ import GoogleMetaAudit from './components/Audit/GoogleMetaAudit';
 import SEOIntelligence from './components/SEO/SEOIntelligence';
 import ChatPanel from './components/Chat/ChatPanel';
 import GeoIncrementalityDashboard from './components/GeoTest/GeoIncrementalityDashboard';
+import AttributionDashboard from './components/Attribution/AttributionDashboard';
 import YouTubeDashboard from './components/YouTube/YouTubeDashboard';
 import YouTubeCreativeManager from './components/YouTube/YouTubeCreativeManager';
 import GoogleCopyCreator from './components/Tools/GoogleCopyCreator';
@@ -29,7 +30,8 @@ const CLIENT_PAGES = {
   '247cf': [
     { key: 'pricing', label: 'Pricing', fullLabel: 'Pricing & Elasticity', after: 'social' },
     { key: 'geo-test', label: 'Geo Test', fullLabel: 'Geo Incrementality', after: 'pricing' },
-    { key: 'audit', label: 'Audit', fullLabel: 'Performance Audit', after: 'geo-test' },
+    { key: 'attribution', label: 'Attribution', fullLabel: 'Attribution', after: 'geo-test' },
+    { key: 'audit', label: 'Audit', fullLabel: 'Performance Audit', after: 'attribution' },
     { key: 'seo', label: 'SEO', fullLabel: 'SEO Intelligence', after: 'audit' },
   ],
   experian: [
@@ -69,6 +71,7 @@ function App() {
       case 'social': return <SocialDashboard />;
       case 'pricing': return <PricingDashboard />;
       case 'geo-test': return <GeoIncrementalityDashboard />;
+      case 'attribution': return <AttributionDashboard />;
       case 'audit': return <GoogleMetaAudit />;
       case 'seo': return <SEOIntelligence />;
       case 'chat': return <ChatPanel />;

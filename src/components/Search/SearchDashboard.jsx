@@ -1,15 +1,16 @@
 import { useMemo, useState } from 'react';
 import { ScatterChart, Scatter, XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { usePerformanceData, computeMetrics, fmt } from '../../services/dataLoader';
-import { computeDealMetrics, FUNNEL_ASSUMPTIONS } from '../../data/funnelAssumptions';
-import { AlertTriangle, Phone, DollarSign, Info } from 'lucide-react';
+import { Phone, DollarSign } from 'lucide-react';
 import KPICard from '../shared/KPICard';
+import LockedKPICard from '../shared/LockedKPICard';
 import AlertCard from '../shared/AlertCard';
 import SectionHeader from '../shared/SectionHeader';
 import FunnelVisualization from '../shared/FunnelVisualization';
+import IncrementalityExperiments from '../shared/IncrementalityExperiments';
 import { cpaCellClass } from '../shared/HeatmapCell';
 import { ScatterTooltip } from '../shared/CustomTooltip';
-import { BUDGET_LIMITED_CAMPAIGNS } from '../../data/auditData';
+import { BUDGET_LIMITED_CAMPAIGNS, INCREMENTALITY_EXPERIMENTS } from '../../data/auditData';
 import SearchIntentAnalysis, { INTENT_COLORS } from './SearchIntentAnalysis';
 import SearchConversionHealth from './SearchConversionHealth';
 import SearchCampaignTable from './SearchCampaignTable';
@@ -37,19 +38,14 @@ export default function SearchDashboard() {
     const groups = {};
     for (const r of searchData) {
       const key = r.campaign;
-      if (!groups[key]) groups[key] = { campaign: key, campaign_type: r.campaign_type, status: r.status, intent: classifyIntent(key), cost: 0, orders: 0, impressions: 0, clicks: 0, revenue: 0 };
+      if (!groups[key]) groups[key] = { campaign: key, campaign_type: r.campaign_type, status: r.status, intent: classifyIntent(key), cost: 0, orders: 0, impressions: 0, clicks: 0 };
       groups[key].cost += r.cost_gbp;
       groups[key].orders += r.orders;
       groups[key].impressions += r.impressions;
       groups[key].clicks += r.clicks;
-      groups[key].revenue += Number(r.revenue_gbp || 0);
     }
     return Object.values(groups)
-      .map(c => {
-        const cpa = c.orders > 0 ? c.cost / c.orders : 0;
-        const deal = computeDealMetrics(c.cost, c.orders, c.revenue || 0);
-        return { ...c, cpa, ctr: c.impressions > 0 ? (c.clicks / c.impressions) * 100 : 0, ...deal };
-      })
+      .map(c => ({ ...c, cpa: c.orders > 0 ? c.cost / c.orders : 0, ctr: c.impressions > 0 ? (c.clicks / c.impressions) * 100 : 0 }))
       .sort((a, b) => sortDir === 'desc' ? b[sortKey] - a[sortKey] : a[sortKey] - b[sortKey]);
   }, [searchData, sortKey, sortDir]);
 
@@ -106,9 +102,9 @@ export default function SearchDashboard() {
     { label: 'Impressions', value: fmt.number(metrics.impressions), connected: true },
     { label: 'Clicks', value: fmt.number(metrics.clicks), cost: fmt.cpa(metrics.cost / metrics.clicks), connected: true },
     { label: 'Applications', value: fmt.number(metrics.orders), cost: fmt.cpa(metrics.cpa), connected: true, note: 'Platform-reported' },
-    { label: 'Approved', value: `~${fmt.number(metrics.approvedEst)}`, cost: metrics.approvedEst > 0 ? fmt.cpa(metrics.cost / metrics.approvedEst) : '—', connected: false, note: `Est. ${FUNNEL_ASSUMPTIONS.approvalRate * 100}% rate` },
-    { label: 'Funded Deals', value: `~${fmt.number(metrics.fundedEst)}`, cost: fmt.cpa(metrics.costPerDeal), connected: false, note: `Est. ${FUNNEL_ASSUMPTIONS.fundingRate * 100}% rate` },
-    { label: 'Revenue', value: metrics.hasActualRevenue ? fmt.currency(metrics.actualRevenue) : `~${fmt.currency(metrics.revenueEst)}`, connected: false, note: metrics.hasActualRevenue ? 'Actual' : 'Modeled' },
+    { label: 'Approved', value: '—', connected: false, note: 'CRM required' },
+    { label: 'Funded Deals', value: '—', connected: false, note: 'CRM required' },
+    { label: 'Deal ROI', value: '—', connected: false, note: 'CRM required' },
   ];
 
   return (
@@ -123,9 +119,9 @@ export default function SearchDashboard() {
         <KPICard label="Spend" value={fmt.currency(metrics.cost)} sub={`${typeSummary.length} campaign types`} trend="up" trendValue="+12%" sparklineTrend="up" color="blue" />
         <KPICard label="Applications" value={fmt.number(metrics.orders)} sub="Platform-reported" trend="up" trendValue="+15%" sparklineTrend="up" color="green" />
         <KPICard label="CPA" value={fmt.cpa(metrics.cpa)} trend="down" trendValue="-3%" sparklineTrend="down" color="orange" />
-        <KPICard label="Cost per Deal" value={fmt.cpa(metrics.costPerDeal)} sub={metrics.hasActualRevenue ? 'Actual' : 'Modeled'} sparklineTrend="down" color="red" />
-        <KPICard label="Est. Funded Deals" value={fmt.number(metrics.fundedEst)} sub={`${FUNNEL_ASSUMPTIONS.approvalRate * 100}% approval × ${FUNNEL_ASSUMPTIONS.fundingRate * 100}% funding`} sparklineTrend="up" color="purple" />
-        <KPICard label="ROI" value={fmt.roi(metrics.roi)} sub={metrics.hasActualRevenue ? `ROAS ${fmt.roas(metrics.roas)}` : 'Modeled'} trend={metrics.roi > 0 ? 'up' : 'down'} trendValue={metrics.hasActualRevenue ? 'Actual revenue' : 'Est. revenue'} sparklineTrend={metrics.roi > 0 ? 'up' : 'down'} color={metrics.roi > 0 ? 'green' : 'red'} />
+        <LockedKPICard label="Cost per Deal" />
+        <LockedKPICard label="Funded Deals" />
+        <LockedKPICard label="Deal ROI" />
       </div>
 
       <SearchIntentAnalysis brandMetrics={brandMetrics} genericMetrics={genericMetrics} brandCount={brandCampaigns.length} genericCount={genericCampaigns.length} intentTiers={intentTiers} />
@@ -142,6 +138,14 @@ export default function SearchDashboard() {
       </div>
 
       <SearchConversionHealth />
+
+      <IncrementalityExperiments
+        title="Incrementality & Experiment Placeholders"
+        sub="Google Ads experiment data is not available yet, so the dashboard mirrors TAU's holdout-first reporting structure and shows a placeholder readout for now."
+        experiments={[INCREMENTALITY_EXPERIMENTS.googleAds]}
+        warning="PMAX, brand, and exact can all compete for the same conversions. Platform CPA is not evidence of incrementality unless Google experiments or geo holdouts show a real exposed-vs-holdout lift."
+        recommendation="Keep this aligned with the Geo Test tab: once experiment APIs are connected, report test type, exposed/holdout split, measured lift, confidence interval, and incremental ROAS separately from platform conversions."
+      />
 
       {/* Budget Constraint Opportunities */}
       <div className="bg-white border border-gray-200 rounded-xl p-6">
@@ -205,15 +209,11 @@ export default function SearchDashboard() {
 
       {/* Full Funnel */}
       <div className="bg-white border border-gray-200 rounded-xl p-6">
-        <SectionHeader title="Full Funnel — Offline Outcomes" sub="True ROI is cost per funded deal, not cost per application. CRM data required for downstream stages." />
+        <SectionHeader title="Full Funnel — Offline Outcomes" sub="CPA is live at the application level. Approval, funded deal, and ROI reporting require CRM integration." />
         <FunnelVisualization stages={funnelStages} accentColor="blue" />
         <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
           <AlertCard severity="warning" title="Next step" text="Import 247CF CRM deal data (approved applications, funded deals, loan values) and map to Google Click IDs (GCLID) for offline conversion import." icon={DollarSign} />
           <AlertCard severity="warning" title="Phone attribution" text="Material portion of funded deals likely originate from phone calls assisted by search. Connect call tracking (CallRail etc.) to source attribution." icon={Phone} />
-        </div>
-        <div className="mt-3 flex items-start gap-2 p-2.5 bg-gray-50 rounded-lg text-xs text-gray-500">
-          <Info size={14} className="text-gray-400 flex-shrink-0 mt-0.5" />
-          <span>Downstream estimates use modeled assumptions: {FUNNEL_ASSUMPTIONS.labels.approvalRate}, {FUNNEL_ASSUMPTIONS.labels.fundingRate}, {FUNNEL_ASSUMPTIONS.labels.avgDealValue}. Connect CRM data for actuals.</span>
         </div>
       </div>
 

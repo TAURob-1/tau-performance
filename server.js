@@ -99,6 +99,7 @@ function loadJSON(filename) {
 }
 
 const consolidatedData = loadJSON('consolidated.json');
+const crmData = loadJSON('crm.json');
 const metaAdsetsData = loadJSON('meta-adsets.json');
 const metaAdsData = loadJSON('meta-ads.json');
 const metaAgeData = loadJSON('meta-age.json');
@@ -131,6 +132,7 @@ app.get('/api/data/247cf', requireAuth, (req, res) => {
   }
   res.json(consolidatedData);
 });
+app.get('/api/data/247cf/crm', requireAuth, (req, res) => res.json(crmData));
 
 // Meta breakdown endpoints
 app.get('/api/data/247cf/meta-adsets', requireAuth, (req, res) => res.json(metaAdsetsData));

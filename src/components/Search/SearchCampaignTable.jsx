@@ -27,8 +27,6 @@ export default function SearchCampaignTable({ campaigns, sortKey, sortDir, onSor
               <SortHeader k="clicks">Clicks</SortHeader>
               <SortHeader k="orders">Apps</SortHeader>
               <SortHeader k="cpa">CPA</SortHeader>
-              <SortHeader k="costPerDeal">CPD</SortHeader>
-              <SortHeader k="roi">ROI</SortHeader>
             </tr>
           </thead>
           <tbody>
@@ -51,8 +49,6 @@ export default function SearchCampaignTable({ campaigns, sortKey, sortDir, onSor
                   <td className="py-2 px-3 text-right text-gray-700">{fmt.number(c.clicks)}</td>
                   <td className="py-2 px-3 text-right text-gray-700">{fmt.number(c.orders)}</td>
                   <td className={`py-2 px-3 text-right font-medium ${cpaCellClass(c.cpa)}`}>{c.cpa > 0 ? fmt.cpa(c.cpa) : '—'}</td>
-                  <td className="py-2 px-3 text-right text-gray-600">{c.costPerDeal > 0 ? fmt.cpa(c.costPerDeal) : '—'}</td>
-                  <td className={`py-2 px-3 text-right text-xs font-medium ${c.roi > 0 ? 'text-green-600' : c.roi < 0 ? 'text-red-600' : 'text-gray-400'}`}>{c.orders > 0 ? fmt.roi(c.roi) : '—'}</td>
                 </tr>
               );
             })}
